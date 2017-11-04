@@ -296,6 +296,10 @@ export class SubscriptionClient {
     return this.on('connected', callback, context);
   }
 
+  public onWillConnect(callback: ListenerFn, context?: any): Function {
+    return this.on('will-connect', callback, context);
+  }
+
   public onConnecting(callback: ListenerFn, context?: any): Function {
     return this.on('connecting', callback, context);
   }
@@ -310,6 +314,10 @@ export class SubscriptionClient {
 
   public onReconnecting(callback: ListenerFn, context?: any): Function {
     return this.on('reconnecting', callback, context);
+  }
+
+  public onWillReconnect(callback: ListenerFn, context?: any): Function {
+    return this.on('will-reconnect', callback, context);
   }
 
   public unsubscribe(opId: string) {
@@ -580,6 +588,7 @@ export class SubscriptionClient {
   }
 
   private connect() {
+    this.eventEmitter.emit(this.reconnecting ? 'will-reconnect' : 'will-connect');
     this.client = new this.wsImpl(this.url, GRAPHQL_WS);
 
     this.checkMaxConnectTimeout();
