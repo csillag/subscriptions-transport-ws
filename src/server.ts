@@ -110,11 +110,11 @@ export class SubscriptionServer {
    */
   private onUnsubscribe: Function;
 
-  public static create(options: ServerOptions, socketOptions: WebSocket.IServerOptions) {
+  public static create(options: ServerOptions, socketOptions: WebSocket.ServerOptions) {
     return new SubscriptionServer(options, socketOptions);
   }
 
-  constructor(options: ServerOptions, socketOptions: WebSocket.IServerOptions) {
+  constructor(options: ServerOptions, socketOptions: WebSocket.ServerOptions) {
     const {
       onSubscribe, onUnsubscribe, onOperation,
       onOperationComplete, onConnect, onDisconnect, keepAlive,
